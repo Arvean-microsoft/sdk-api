@@ -2,12 +2,12 @@
 UID: NF:winternl.NtQuerySystemInformation
 title: NtQuerySystemInformation function (winternl.h)
 description: Retrieves the specified system information.
-helpviewer_keywords: ["NtQuerySystemInformation","NtQuerySystemInformation function","SYSTEM_BASIC_INFORMATION","SYSTEM_CODEINTEGRITY_INFORMATION","SYSTEM_EXCEPTION_INFORMATION","SYSTEM_INFORMATION_CLASS","SYSTEM_INTERRUPT_INFORMATION","SYSTEM_KERNEL_VA_SHADOW_INFORMATION","SYSTEM_LEAP_SECOND_INFORMATION","SYSTEM_LOOKASIDE_INFORMATION","SYSTEM_PERFORMANCE_INFORMATION","SYSTEM_POLICY_INFORMATION","SYSTEM_PROCESSOR_PERFORMANCE_INFORMATION","SYSTEM_PROCESS_INFORMATION","SYSTEM_QUERY_PERFORMANCE_COUNTER_INFORMATION","SYSTEM_REGISTRY_QUOTA_INFORMATION","SYSTEM_SPECULATION_CONTROL_INFORMATION","SYSTEM_THREAD_INFORMATION","SYSTEM_TIMEOFDAY_INFORMATION","SYSTEM_VHD_BOOT_INFORMATION","SystemBasicInformation","SystemCodeIntegrityInformation","SystemExceptionInformation","SystemInterruptInformation","SystemKernelVaShadowInformation","SystemLeapSecondInformation","SystemLookasideInformation","SystemPerformanceInformation","SystemPolicyInformation","SystemProcessInformation","SystemProcessorPerformanceInformation","SystemQueryPerformanceCounterInformation","SystemRegistryQuotaInformation","SystemSpeculationControlInformation","SystemTimeOfDayInformation","base.ntquerysysteminformation","winternl/NtQuerySystemInformation"]
+helpviewer_keywords: ["NtQuerySystemInformation","NtQuerySystemInformation function","PMU_PROFILE_SOURCE_ADD_INFORMATION","PMU_PROFILE_SOURCE_REMOVE_INFORMATION","SYSTEM_BASIC_INFORMATION","SYSTEM_CODEINTEGRITY_INFORMATION","SYSTEM_EXCEPTION_INFORMATION","SYSTEM_INFORMATION_CLASS","SYSTEM_INTERRUPT_INFORMATION","SYSTEM_KERNEL_VA_SHADOW_INFORMATION","SYSTEM_LEAP_SECOND_INFORMATION","SYSTEM_LOOKASIDE_INFORMATION","SYSTEM_PERFORMANCE_INFORMATION","SYSTEM_POLICY_INFORMATION","SYSTEM_PROCESSOR_PERFORMANCE_INFORMATION","SYSTEM_PROCESS_INFORMATION","SYSTEM_QUERY_PERFORMANCE_COUNTER_INFORMATION","SYSTEM_REGISTRY_QUOTA_INFORMATION","SYSTEM_SPECULATION_CONTROL_INFORMATION","SYSTEM_THREAD_INFORMATION","SYSTEM_TIMEOFDAY_INFORMATION","SYSTEM_VHD_BOOT_INFORMATION","SystemBasicInformation","SystemCodeIntegrityInformation","SystemExceptionInformation","SystemInterruptInformation","SystemKernelVaShadowInformation","SystemLeapSecondInformation","SystemLookasideInformation","SystemPerformanceInformation","SystemPmuSourceAddInformation","SystemPmuSourceRemoveInformation","SystemPolicyInformation","SystemProcessInformation","SystemProcessorPerformanceInformation","SystemQueryPerformanceCounterInformation","SystemRegistryQuotaInformation","SystemSpeculationControlInformation","SystemTimeOfDayInformation","base.ntquerysysteminformation","winternl/NtQuerySystemInformation"]
 old-location: base\ntquerysysteminformation.htm
 tech.root: winprog
 ms.assetid: 553ec7b9-c5eb-4955-8dc0-f1c06f59fe31
-ms.date: 12/05/2018
-ms.keywords: NtQuerySystemInformation, NtQuerySystemInformation function, SYSTEM_BASIC_INFORMATION, SYSTEM_CODEINTEGRITY_INFORMATION, SYSTEM_EXCEPTION_INFORMATION, SYSTEM_INFORMATION_CLASS, SYSTEM_INTERRUPT_INFORMATION, SYSTEM_KERNEL_VA_SHADOW_INFORMATION, SYSTEM_LEAP_SECOND_INFORMATION, SYSTEM_LOOKASIDE_INFORMATION, SYSTEM_PERFORMANCE_INFORMATION, SYSTEM_POLICY_INFORMATION, SYSTEM_PROCESSOR_PERFORMANCE_INFORMATION, SYSTEM_PROCESS_INFORMATION, SYSTEM_QUERY_PERFORMANCE_COUNTER_INFORMATION, SYSTEM_REGISTRY_QUOTA_INFORMATION, SYSTEM_SPECULATION_CONTROL_INFORMATION, SYSTEM_THREAD_INFORMATION, SYSTEM_TIMEOFDAY_INFORMATION, SYSTEM_VHD_BOOT_INFORMATION, SystemBasicInformation, SystemCodeIntegrityInformation, SystemExceptionInformation, SystemInterruptInformation, SystemKernelVaShadowInformation, SystemLeapSecondInformation, SystemLookasideInformation, SystemPerformanceInformation, SystemPolicyInformation, SystemProcessInformation, SystemProcessorPerformanceInformation, SystemQueryPerformanceCounterInformation, SystemRegistryQuotaInformation, SystemSpeculationControlInformation, SystemTimeOfDayInformation, base.ntquerysysteminformation, winternl/NtQuerySystemInformation
+ms.date: 03/09/2026
+ms.keywords: NtQuerySystemInformation, NtQuerySystemInformation function, PMU_PROFILE_SOURCE_ADD_INFORMATION, PMU_PROFILE_SOURCE_REMOVE_INFORMATION, SYSTEM_BASIC_INFORMATION, SYSTEM_CODEINTEGRITY_INFORMATION, SYSTEM_EXCEPTION_INFORMATION, SYSTEM_INFORMATION_CLASS, SYSTEM_INTERRUPT_INFORMATION, SYSTEM_KERNEL_VA_SHADOW_INFORMATION, SYSTEM_LEAP_SECOND_INFORMATION, SYSTEM_LOOKASIDE_INFORMATION, SYSTEM_PERFORMANCE_INFORMATION, SYSTEM_POLICY_INFORMATION, SYSTEM_PROCESSOR_PERFORMANCE_INFORMATION, SYSTEM_PROCESS_INFORMATION, SYSTEM_QUERY_PERFORMANCE_COUNTER_INFORMATION, SYSTEM_REGISTRY_QUOTA_INFORMATION, SYSTEM_SPECULATION_CONTROL_INFORMATION, SYSTEM_THREAD_INFORMATION, SYSTEM_TIMEOFDAY_INFORMATION, SYSTEM_VHD_BOOT_INFORMATION, SystemBasicInformation, SystemCodeIntegrityInformation, SystemExceptionInformation, SystemInterruptInformation, SystemKernelVaShadowInformation, SystemLeapSecondInformation, SystemLookasideInformation, SystemPerformanceInformation, SystemPmuSourceAddInformation, SystemPmuSourceRemoveInformation, SystemPolicyInformation, SystemProcessInformation, SystemProcessorPerformanceInformation, SystemQueryPerformanceCounterInformation, SystemRegistryQuotaInformation, SystemSpeculationControlInformation, SystemTimeOfDayInformation, base.ntquerysysteminformation, winternl/NtQuerySystemInformation
 req.header: winternl.h
 req.include-header: 
 req.target-type: Windows
@@ -101,6 +101,18 @@ Returns a <b>SYSTEM_KERNEL_VA_SHADOW_INFORMATION</b> structure that can be used 
 #### SystemLeapSecondInformation
 
 Returns an opaque <b>SYSTEM_LEAP_SECOND_INFORMATION</b> structure that can be used to enable or disable leap seconds system-wide. This setting will persist even after a reboot of the system.
+
+
+
+#### SystemPmuSourceAddInformation
+
+Accepts a <b>PMU_PROFILE_SOURCE_ADD_INFORMATION</b> structure to register a new PMU (Performance Monitoring Unit) profile source. This information class is used only with <b>NtSetSystemInformation</b>. The caller must be an Administrator or a member of the Performance Log Users group. The added source can optionally persist across system reboots.
+
+
+
+#### SystemPmuSourceRemoveInformation
+
+Accepts a <b>PMU_PROFILE_SOURCE_REMOVE_INFORMATION</b> structure to remove a previously registered PMU profile source. This information class is used only with <b>NtSetSystemInformation</b>. The caller must be an Administrator or a member of the Performance Log Users group. This operation also removes any persisted registry entry for the source.
 
 
 
@@ -609,6 +621,71 @@ typedef struct _SYSTEM_LEAP_SECOND_INFORMATION {
 ```
 
 The <b>Flags</b> field is reserved for future use.
+
+
+
+#### PMU_PROFILE_SOURCE_ADD_INFORMATION
+
+When the <i>SystemInformationClass</i> parameter is
+<b>SystemPmuSourceAddInformation</b>, the buffer pointed to
+by the <i>SystemInformation</i> parameter should be large
+enough to hold a <b>PMU_PROFILE_SOURCE_ADD_INFORMATION</b> structure having the following layout. This information class is used only with <b>NtSetSystemInformation</b>, not <b>NtQuerySystemInformation</b>.
+
+
+
+``` syntax
+typedef struct _PMU_PROFILE_SOURCE_ADD_INFORMATION {
+    UCHAR Version;
+    union {
+        EVENT_TRACE_PROFILE_ADD_INFORMATION_V2 V2;
+        EVENT_TRACE_PROFILE_ADD_INFORMATION_V3 V3;
+    };
+    ULONG CpuInfoHierarchy[3];
+    ULONG InitialInterval;
+    BOOLEAN Persist;
+    WCHAR ProfileSourceDescription[ANYSIZE_ARRAY];
+} PMU_PROFILE_SOURCE_ADD_INFORMATION, *PPMU_PROFILE_SOURCE_ADD_INFORMATION;
+```
+
+The <b>Version</b> member specifies the structure version. Valid values are 2 or 3. Any other value causes the operation to return STATUS_REVISION_MISMATCH.
+
+The <b>V2</b> or <b>V3</b> member contains version-specific profile add information describing the hardware performance counter event to register.
+
+The <b>CpuInfoHierarchy</b> member is an array of three <b>ULONG</b> values that identify the target CPU microarchitecture. On x86 and x64 systems, the values represent Family, Model, and Stepping. On ARM and ARM64 systems, the values represent Vendor, Model, and Revision. A value of MAXULONG (0xFFFFFFFF) indicates that the field is not specified.
+
+The <b>InitialInterval</b> member specifies the initial sampling interval for the profile source.
+
+The <b>Persist</b> member, if TRUE, causes the profile source configuration to be written to the registry so that it persists across system reboots.
+
+The <b>ProfileSourceDescription</b> member is a variable-length null-terminated wide-character string that names the profile source. The maximum length is 255 characters.
+
+The caller must be an Administrator or a member of the Performance Log Users group; otherwise the operation returns STATUS_ACCESS_DENIED.
+
+
+
+#### PMU_PROFILE_SOURCE_REMOVE_INFORMATION
+
+When the <i>SystemInformationClass</i> parameter is
+<b>SystemPmuSourceRemoveInformation</b>, the buffer pointed to
+by the <i>SystemInformation</i> parameter should be large
+enough to hold a single <b>PMU_PROFILE_SOURCE_REMOVE_INFORMATION</b> structure having the following layout. This information class is used only with <b>NtSetSystemInformation</b>, not <b>NtQuerySystemInformation</b>.
+
+
+
+``` syntax
+typedef struct _PMU_PROFILE_SOURCE_REMOVE_INFORMATION {
+    KPROFILE_SOURCE ProfileSource;
+    ULONG CpuInfoHierarchy[3];
+} PMU_PROFILE_SOURCE_REMOVE_INFORMATION, *PPMU_PROFILE_SOURCE_REMOVE_INFORMATION;
+```
+
+The <b>ProfileSource</b> member identifies the profile source to remove.
+
+The <b>CpuInfoHierarchy</b> member is an array of three <b>ULONG</b> values that identify the CPU microarchitecture to which the source belongs. On x86 and x64 systems, the values represent Family, Model, and Stepping. On ARM and ARM64 systems, the values represent Vendor, Model, and Revision. A value of MAXULONG (0xFFFFFFFF) indicates that the field is not specified.
+
+Removing a source also deletes the corresponding persisted registry entry if one exists.
+
+The caller must be an Administrator or a member of the Performance Log Users group; otherwise the operation returns STATUS_ACCESS_DENIED.
 
 
 
